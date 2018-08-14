@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+<h1>Book details:</h1>
+
+{% endblock %}
+
+{% block body %}
+<ul>
+    <li>Title: {{ book.title }}</li>
+    <li>Author: {{ book.author }}</li>
+    <li>Publication Year: {{ book.year }}</li>
+    <li>ISBN: {{ book.isbn }}</li>
+    <li>Review Count: {{ reviews_count }}</li>
+    <li>Average Rating: {{ average_rating }}</li>
+</ul>
+{% if user_reviews %}
+<hr>
+List of books you reviewed and/or rated:
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Book ISBN</th>
+            <th scope="col">Review</th>
+            <th scope="col">Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in user_reviews %}
+            <tr>
+                <th scope="row"><a href="{{ url_for('book', book_id=book.id, book_isbn=book.isbn) }}" method="post">{{ book.isbn }}</a></th>
+                <td>{{ item.opinion }}</td>
+                <td>{{ item.rate }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+<hr>
+
+Add your opinion about the book:
+<form action="{{ url_for("book", book_id=book.id) }}" method="post">
+    <input class="form-control" type="text" name="opinion" placeholder="Enter a review">
+
+Rate the book from 1 to 5:
+    <select class="form-control" name="rate">
+        {% for num in numbers %}
+        <option value="{{ num }}">{{ num }}</option>
+        {% endfor %}
+    </select>
+    <button class="form-control">Submit</button>
+</form>
+
+<hr>
+<a href="{{ url_for("logout") }}" title="Sign out">Logout</a>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+<h1>Member's area</h1>
+{% endblock %}
+
+
+{% block body %}
+Welcome, {{ name }}.<br>
+You are logged as {{ email }}.
+<hr>
+
+To search for a book, pick a category: ISBN, Title or Author
+<form action="{{ url_for("search") }}" method="POST">
+	<select class="form-control" name="category">
+		<option value="isbn">ISBN</option>
+		<option value="title">Title</option>
+		<option value="author">Author</option>
+		<option value="year">Year</option>
+	</select>
+
+	<input class="form-control" name="query" type="search" placeholder="Type in here">
+	<button class="btn btn-primary">Search</button>
+</form>
+
+<hr>
+<a href="{{ url_for("logout") }}" title="Sign out">Logout</a>
+
+{% endblock %}

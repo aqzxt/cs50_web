@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+{{ title }}
+{% endblock %}
+
+{% block body %}
+
+{{ msg }}
+<a href="{{ url_for("main") }}">Go back to the homepage.</a>
+{% endblock %}

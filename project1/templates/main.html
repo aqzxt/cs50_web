@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+
+<h1>Registration</h1>
+
+{% endblock %}
+
+
+{% block body %}
+
+{% if msg %}
+{{ msg }}
+{% endif %}
+
+Please, register before accessing the book reviews by Goodreads
+
+<form class="register" action="{{ url_for("main") }}" method="POST">
+	<!-- name="username" "email" "password" property is for Python reference -->
+
+	<input type="text" name="name_register" placeholder="Enter Your Name">
+	<input type="email" name="email_register" placeholder="Enter Your Email">
+	<input type="password" name="password_register" placeholder="Enter Your Password">
+	<button>Register</button>
+</form>
+<hr>
+
+<h1>Login</h1>
+Already a member? Login:
+
+<form class="login" action="{{ url_for("main") }}" method="POST">
+	<input type="text" name="email_login" placeholder="Your Email">
+	<input type="password" name="password_login" placeholder="Your Password">
+	<button>Login</button>
+</form>
+
+
+
+{% endblock %}
