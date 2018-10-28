@@ -1,9 +1,13 @@
 import os, requests
 from flask import (Flask, session, render_template, request, flash, jsonify)
 from flask_session import Session
+from flask_scss import Scss
+
 from models import *
 
 if not os.getenv("DATABASE_URL"): raise RuntimeError("DATABASE_URL is not set")
+
+GOODREADS_APIKEY = os.getenv("GOODREADS_APIKEY")
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
@@ -12,6 +16,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 db.init_app(app)
+
+Scss(app, static_dir='static', asset_dir='assets')
 
 # Homepage/Login/Register page
 @app.route("/", methods=["GET", "POST"])
@@ -122,7 +128,7 @@ def book(book_id):
         numbers = [i for i in range(1, 6)]
         numbers.insert(0, '')
         req = requests.get("https://www.goodreads.com/book/review_counts.json",
-                params={"key": "<INSERT_YOUR_KEY_HERE>", "isbns": {book.isbn}}).json()["books"][0]
+                params={"key": GOODREADS_APIKEY, "isbns": {book.isbn}}).json()["books"][0]
         return render_template("book.html", book=book, user_reviews=user_reviews, reviews_count=req["reviews_count"], average_rating=req["average_rating"], numbers=numbers, query=query)
 
     # if method == "POST"

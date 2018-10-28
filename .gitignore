@@ -1,0 +1,20 @@
+# Ignore everything
+*
+
+# Whitelist directories
+#!*/
+
+!/project1/assets
+!/project1/templates
+
+# Specific files
+!/project1/requirements.txt
+
+
+# All types I want It In
+!.gitignore
+!*.py
+!*.html
+!*.css
+!*.scss
+!*.md
