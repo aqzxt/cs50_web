@@ -17,7 +17,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 db.init_app(app)
 
-Scss(app, static_dir='static', asset_dir='./assets/style')
+Scss(app, static_dir='static', asset_dir='./static')
 
 # Homepage/Login/Register page
 @app.route("/", methods=["GET", "POST"])
