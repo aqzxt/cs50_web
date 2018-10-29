@@ -6,7 +6,10 @@
 
 ## Description of each file
 
-`application.py`: main app file
+`application.py` the main app file
+`import.py` used to import csv data into a configured database
+`models.py` ORM to setup the database
+`books.csv` csv data
 
 ### 1. [x] Registration
 
