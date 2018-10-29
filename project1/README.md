@@ -1,4 +1,10 @@
-# Project 1: Web Programming with Python and JavaScript
+# Project 1:
+
+Built using Python with Flask
+
+Installation:
+
+pip install flask flask_session requests psycopg2 sqlalchemy requests flask_sqlalchemy
 
 ## 1. [x] Registration
 (At minimum) a username and password.
@@ -10,7 +16,7 @@ Log in using username and password.
 Logged in users should be able to log out of the site.
 
 ## 4. [x] Import
-Import books.csv.
+Import books.csv into PostgreSQL database.
 
 ## 5. [x] Search
 Once logged in, search for ANY matches on a new page.

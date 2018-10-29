@@ -2,38 +2,38 @@
 
 {% block heading %}
 
-<h1>Registration</h1>
+<h2 class="title">Book Reviews 2.0</h2>
 
 {% endblock %}
 
-
 {% block body %}
 
-{% if msg %}
-{{ msg }}
-{% endif %}
+<div class="home">
+    <!--{% if msg %} {{ msg }} {% endif %}-->
 
-Please, register before accessing the book reviews by Goodreads
+<div class="forms">
+    <h3 class="title">Registration:</h3>
+    <form class="register" action="{{ url_for("main") }}" method="POST">
+        <!-- name="username" "email" "password" property is for Python reference -->
 
-<form class="register" action="{{ url_for("main") }}" method="POST">
-	<!-- name="username" "email" "password" property is for Python reference -->
+        <input class="ip-bt" type="text" name="name_register" placeholder="Enter Your Name">
+        <input class="ip-bt" type="email" name="email_register" placeholder="Enter Your Email">
+        <input class="ip-bt" type="password" name="password_register" placeholder="Enter Your Password">
+        <button class="ip-bt">Register</button>
+    </form>
+    <hr>
 
-	<input type="text" name="name_register" placeholder="Enter Your Name">
-	<input type="email" name="email_register" placeholder="Enter Your Email">
-	<input type="password" name="password_register" placeholder="Enter Your Password">
-	<button>Register</button>
-</form>
-<hr>
+    <h3>Login</h3>
+    Already a member?
+    
+    <form class="login" action="{{ url_for("main") }}" method="POST">
+        <input class="ip-bt" type="text" name="email_login" placeholder="Your Email">
+        <input class="ip-bt" type="password" name="password_login" placeholder="Your Password">
+        <button class="ip-bt">Login</button>
+    </form>
 
-<h1>Login</h1>
-Already a member? Login:
+</div>
 
-<form class="login" action="{{ url_for("main") }}" method="POST">
-	<input type="text" name="email_login" placeholder="Your Email">
-	<input type="password" name="password_login" placeholder="Your Password">
-	<button>Login</button>
-</form>
-
-
+<!-- <img class="img-home" src="static/img/bg-home2.jpg"> -->
 
 {% endblock %}

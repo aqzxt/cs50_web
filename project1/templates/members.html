@@ -1,29 +1,35 @@
 {% extends "layout.html" %}
 
 {% block heading %}
-<h1>Member's area</h1>
+<h2 class="members-header">Member's area</h2>
 {% endblock %}
 
 
 {% block body %}
-Welcome, {{ name }}.<br>
-You are logged as {{ email }}.
-<hr>
+<div class="members-body">
 
-To search for a book, pick a category: ISBN, Title or Author
-<form action="{{ url_for("search") }}" method="POST">
-	<select class="form-control" name="category">
-		<option value="isbn">ISBN</option>
-		<option value="title">Title</option>
-		<option value="author">Author</option>
-		<option value="year">Year</option>
-	</select>
+    <div class="members-section">
+        <p>Welcome, {{ name }}.</p>
+        <p>You are logged as {{ email }}.</p>
+        <hr>
+    </div>
 
-	<input class="form-control" name="query" type="search" placeholder="Type in here">
-	<button class="btn btn-primary">Search</button>
-</form>
+    <p>To search for a book, pick a category: ISBN, Title or Author</p>
+    <form action="{{ url_for("search") }}" method="POST">
+        <select class="form-control" name="category">
+            <option value="isbn">ISBN</option>
+            <option value="title">Title</option>
+            <option value="author">Author</option>
+            <option value="year">Year</option>
+        </select>
 
-<hr>
-<a href="{{ url_for("logout") }}" title="Sign out">Logout</a>
+        <input class="form-control" name="query" type="search" placeholder="Type in here">
+        <button class="btn btn-primary">Search</button>
+    </form>
+
+    <hr>
+    <a href="{{ url_for("logout") }}" title="Sign out">Logout</a>
+
+</div>
 
 {% endblock %}

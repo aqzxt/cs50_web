@@ -4,6 +4,9 @@
 # Whitelist directories
 #!*/
 
+!/*.md
+
+!/project1/
 !/project1/assets
 !/project1/templates
 
