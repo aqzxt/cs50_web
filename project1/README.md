@@ -10,6 +10,7 @@
 `import.py` used to import csv data into a configured database  
 `models.py` ORM to setup the database  
 `books.csv` csv data  
+`requirements.txt` dependencies to install
 
 ### 1. [x] Registration
 
@@ -46,5 +47,3 @@ Display the average and number of ratings.
 ### 9. [x] API Access
 
 GET request to your website’s /api/<\isbn> route. Output a json file. Otherwise, a 404 error.
-
-In README.md, include a short writeup describing your project, what’s contained in each file, and (optionally) any other additional information the staff should know about your project.
