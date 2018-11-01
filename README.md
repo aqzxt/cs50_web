@@ -6,14 +6,12 @@
 
 Python, Flask, ORM, API, SCSS
 
-### p1 Status
-
-Done  
+Status:
+[x] Done  
 
 ## [Project3](https://github.com/mxhsb/cs50_web/blob/master/project3/README.md)
 
 Python, Django, ORM
 
-### p3 Status
-
-Ongoing  
+Status:
+[x] Ongoing  
