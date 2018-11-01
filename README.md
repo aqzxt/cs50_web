@@ -4,14 +4,12 @@
 
 ## [Project1](https://github.com/mxhsb/cs50_web/blob/master/project1/README.md)
 
-Python, Flask, ORM, API, SCSS
+Python, Flask, ORM, API, SCSS  
 
-Status:
-[x] Done  
+Status: **Done**  
 
 ## [Project3](https://github.com/mxhsb/cs50_web/blob/master/project3/README.md)
 
-Python, Django, ORM
+Python, Django, RDB  
 
-Status:
-[x] Ongoing  
+Status: **Ongoing**  
