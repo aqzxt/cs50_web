@@ -2,113 +2,128 @@ from django.db import models
 
 # Individual items
 class Pizza(models.Model):
+    '''Represents the main order: pizza.'''
     TYPES = (
-        ('R', 'Regular'),
-        ('S', 'Sicilian')
+        ('REG', 'Regular'),
+        ('SIC', 'Sicilian')
     )
     SIZES = (
         ('S', 'Small'),
         ('L', 'Large')
     )
-    type = models.CharField(max_length=3, choices=TYPES)
+    type = models.CharField(max_length=10, choices=TYPES)
     size = models.CharField(max_length=1, choices=SIZES)
 
     def __str__(self):
-        return f"({self.id}) {self.size} {self.type}"
+        return f"({self.id}) {self.size} {self.type} Pizza"
 
-class Toppings(models.Model):
+class Topping(models.Model):
+    '''Represents a topping addition. Default value is NULL'''
     TOPPINGS = (
-        ('A1', 'Anchovies'), ('A2', 'Artichoke'), 
-        ('B1', 'Barbecue Chicken'), ('B2', 'Black Olives'), 
-        ('B3', 'Buffalo Chicken'), ('C1', 'Canadian Bacon'), 
-        ('E1', 'Eggplant'), ('F1', 'Fresh Garlic'), 
-        ('G1', 'Green Peppers'), ('H1', 'Ham'), 
-        ('H2', 'Hamburger'), ('M1', 'Mushrooms'), 
-        ('O1', 'Onions'), ('P1', 'Pepperoni'), 
-        ('P2', 'Pineapple'), ('S1', 'Sausage'), 
-        ('S2', 'Spinach'), ('T1', 'Tomato & Basil'), 
-        ('Z1', 'Zucchini')
+        ('ANCHOVY', 'Anchovies'), ('ARTICHOKE', 'Artichoke'), 
+        ('BACHICKEN', 'Barbecue Chicken'), ('BOLIVE', 'Black Olives'), 
+        ('BUCHICKEN', 'Buffalo Chicken'), ('CBACON', 'Canadian Bacon'), 
+        ('EGGPLANT', 'Eggplant'), ('FGARLIC', 'Fresh Garlic'), 
+        ('GPEPPER', 'Green Peppers'), ('HAM', 'Ham'), 
+        ('HAMBURGER', 'Hamburger'), ('MUSHROOM', 'Mushrooms'), 
+        ('ONION', 'Onions'), ('PEPPERONI', 'Pepperoni'), 
+        ('PINEAPPLE', 'Pineapple'), ('SAUSAGE', 'Sausage'), 
+        ('SPINACH', 'Spinach'), ('TOMATOBASIL', 'Tomato & Basil'), 
+        ('ZUCCHINI', 'Zucchini')
     )
-    topping = models.CharField(max_length=2, null=True, blank=True, choices=TOPPINGS)
+    topping = models.CharField(max_length=20, null=True, blank=True, choices=TOPPINGS)
 
     def __str__(self):
-        return f"({self.id}) {self.topping}"
+        return f"({self.id}) {self.topping} Topping"
     
 
-class Subs(models.Model):
+class Sub(models.Model):
+    '''Represents a submarine sandwich addition. Default value is NULL'''
     SIZES = (
         ('S', 'Small'),
         ('L', 'Large')
     )
     SUBS = (
-        ('C1', 'Cheese'), ('C2', 'Cheeseburger'), 
-        ('C3', 'Chicken Parmigiana'), ('E1', 'Eggplant Parmigiana'), 
-        ('E2', 'Extra Cheese on any subs'), ('F1', 'Fried Chicken'), 
-        ('H1', 'Ham + Cheese'), ('H2', 'Hamburger'), 
-        ('I1', 'Italian'), ('M1', 'Meatball'), 
-        ('S1', 'Sausage, Peppers & Onions'), ('S2', 'Steak'), 
-        ('S3', 'Steak + Cheese'), ('S4', 'Steak + Green Peppers'), 
-        ('S5', 'Steak + Mushrooms'), ('S6', 'Steak + Onions'), 
-        ('T1', 'Tuna'), ('T2', 'Turkey'), ('V1', 'Veggie')
+        ('CHEESE', 'Cheese'), ('CHEESEB', 'Cheeseburger'), 
+        ('CHICKEN', 'Chicken Parmigiana'), ('EGGPLANT', 'Eggplant Parmigiana'), 
+        ('XCHEESE', 'Extra Cheese on any subs'), ('FCHICKEN', 'Fried Chicken'), 
+        ('HAMC', 'Ham + Cheese'), ('HAMBURGER', 'Hamburger'), 
+        ('ITALIAN', 'Italian'), ('MEAT', 'Meatball'), 
+        ('SAPEON', 'Sausage, Peppers & Onions'), ('STEAK', 'Steak'), 
+        ('STEAKC', 'Steak + Cheese'), ('STEAKG', 'Steak + Green Peppers'), 
+        ('STEAKM', 'Steak + Mushrooms'), ('STEAKO', 'Steak + Onions'), 
+        ('TUNA', 'Tuna'), ('TURKEY', 'Turkey'), ('VEGGIE', 'Veggie')
     )
-    subs = models.CharField(max_length=3, null=True, blank=True, choices=SUBS)
     size = models.CharField(max_length=1, null=True, blank=True, choices=SIZES)
+    sub = models.CharField(max_length=20, null=True, blank=True, choices=SUBS)
 
     def __str__(self):
-        return f"({self.id}) {self.subs}"
+        return f"({self.id}) {self.size} {self.subs} Subs"
 
 class Pasta(models.Model):
+    '''Represents a pasta addition. Default value is NULL'''
     PASTA = (
-        ('M2', 'Baked Ziti w/ Mozzarella'),
-        ('M1', 'Baked Ziti w/ Meatballs'),
-        ('C1', 'Baked Ziti w/ Chicken')
+        ('MOZZA', 'Baked Ziti w/ Mozzarella'),
+        ('MEAT', 'Baked Ziti w/ Meatballs'),
+        ('CHICKEN', 'Baked Ziti w/ Chicken')
     )
-    pasta = models.CharField(max_length=2, null=True, blank=True, choices=PASTA)
+    pasta = models.CharField(max_length=20, null=True, blank=True, choices=PASTA)
 
     def __str__(self):
-        return f"({self.id}) {self.pasta}"
+        return f"({self.id}) {self.pasta} Pasta"
 
 class Salad(models.Model):
+    '''Represents a salad addition. Default value is NULL'''
     SALADS = (
-        ('G1','Garden Salad'),
-        ('G2', 'Greek Salad'),
-        ('AP', 'Antipasto'),
-        ('ST', 'Salad w/ Tuna')
+        ('GARDEN','Garden Salad'),
+        ('GREEK', 'Greek Salad'),
+        ('APASTO', 'Antipasto'),
+        ('TUNA', 'Salad w/ Tuna')
     )
-    salad = models.CharField(max_length=2, null=True, blank=True, choices=SALADS)
+    salad = models.CharField(max_length=20, null=True, blank=True, choices=SALADS)
 
     def __str__(self):
-        return f"({self.id}) {self.salad}"
+        return f"({self.id}) {self.salad} Salad"
 
-class DinnerPlatters(models.Model):
+class DinnerPlatter(models.Model):
+    '''Represents a dinner platter addition. Default value is NULL'''
     SIZES = (
         ('S', 'Small'),
         ('L', 'Large')
     )
     DINNER = (
-        ('G1','Garden Salad'),
-        ('G2', 'Greek Salad'),
-        ('AP', 'Antipasto'),
-        ('BZ', 'Baked Ziti'),
-        ('MP', 'Meatball Parm'),
-        ('CP', 'Chicken Parm')
+        ('GARDEN','Garden Salad'),
+        ('GREEK', 'Greek Salad'),
+        ('APASTO', 'Antipasto'),
+        ('ZITI', 'Baked Ziti'),
+        ('MEAT', 'Meatball Parm'),
+        ('CHICKEN', 'Chicken Parm')
     )
     size = models.CharField(max_length=1, null=True, blank=True, choices=SIZES)
-    dinner = models.CharField(max_length=2, null=True, blank=True, choices=DINNER)
+    type = models.CharField(max_length=20, null=True, blank=True, choices=DINNER)
 
     def __str__(self):
-        return f"({self.id}) {self.size} {self.dinner}"
+        return f"({self.id}) {self.size} {self.dinner} Dinner Platter"
 
 # All items
 class Order(models.Model):
-    pizza = models.ForeignKey(Pizza, on_delete="models.CASCADE", related_name="p")
-    pizza_size = models.ForeignKey(Pizza, on_delete="models.CASCADE", related_name="p_size")
-    topping = models.ForeignKey(Toppings, on_delete="models.SET_NULL", related_name="topping_add", null=True, blank=True)
-    sub = models.ForeignKey(Subs, on_delete="models.SET_NULL", related_name="subs_add", null=True, blank=True)
-    pasta = models.ForeignKey(Pasta, on_delete="models.SET_NULL", related_name="pasta_add", null=True, blank=True)
-    salad = models.ForeignKey(Salad, on_delete="models.SET_NULL", related_name="salad_add", null=True, blank=True)
-    dinner = models.ForeignKey(DinnerPlatters, on_delete="models.SET_NULL", related_name="dinner_add", null=True, blank=True)
-    dinner_size = models.ForeignKey(DinnerPlatters, on_delete="models.SET_NULL", related_name="dinner_size_add", null=True, blank=True)
+    '''Represents a single order'''
+    pizza = models.ForeignKey(Pizza, on_delete="models.CASCADE", related_name="pizzas")
+    topping = models.ForeignKey(Topping, on_delete="models.SET_NULL", related_name="toppings", null=True, blank=True)
+    sub = models.ForeignKey(Sub, on_delete="models.SET_NULL", related_name="subs", null=True, blank=True)
+    pasta = models.ForeignKey(Pasta, on_delete="models.SET_NULL", related_name="pastas", null=True, blank=True)
+    salad = models.ForeignKey(Salad, on_delete="models.SET_NULL", related_name="salads", null=True, blank=True)
+    dinner = models.ForeignKey(DinnerPlatter, on_delete="models.SET_NULL", related_name="dinners", null=True, blank=True)
 
     def __str__(self):
-        return f"{self.pizza_size} {self.pizza} Pizza - {self.topping} - {self.sub} - {self.pasta} - {self.salad} - {self.dinner}"
+        '''Format string if the optional addition is available. Default value: empty string'''
+
+        # Check for instance class presence
+        t = su = p = sa = d = ""
+        if self.topping: t = " | " + f"{self.topping} Topping"
+        if self.sub: su = " | " + f"{self.sub} Sub"
+        if self.pasta: p = " | " + f"{self.pasta} Pasta"
+        if self.salad: sa = " | " + f"{self.salad} Salad"
+        if self.dinner: d = " | " + f"{self.dinner} Dinner Platter"
+        
+        return f"({self.id}) {self.pizza} Pizza{t}{su}{p}{sa}{d}"
