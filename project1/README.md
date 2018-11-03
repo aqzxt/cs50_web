@@ -1,6 +1,6 @@
-# Project 1
+# Project 1 - FLASK
 
-## Requirements based on
+## Requirements
 
 [Project1 requirements - docs.CS50.net](https://docs.cs50.net/web/2018/x/projects/1/project1.html)
 
