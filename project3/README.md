@@ -4,7 +4,7 @@
 
 [Project3 requirements - docs.CS50.net](https://docs.cs50.net/web/2018/x/projects/3/project3.html)
 
-### 1. [ ] Menu
+### 1. [x] Menu
 
 ### 2. [ ] Adding Items
 
