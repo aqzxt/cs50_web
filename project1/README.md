@@ -6,11 +6,21 @@
 
 ## Description of each file
 
-`application.py` the main app file  
-`import.py` used to import csv data into a configured database  
-`models.py` ORM to setup the database  
-`books.csv` csv data  
-`requirements.txt` dependencies to install
+- `application.py` the main app file  
+- `import.py` used to import csv data into a configured database  
+- `models.py` ORM to setup the database  
+- `books.csv` csv data  
+- `requirements.txt` dependencies to install
+
+Template descriptions:
+
+- `layout.html` base template with common structure
+- `main.html` login/registration homepage
+- `notify.html` after user registration/logout/invalid login credentials
+- `members.html` member's area, let users search for a any query
+- `search.html` search results page
+- `book.html` individual page with book information
+- `logout.html` after logging out
 
 ### 1. [x] Registration
 

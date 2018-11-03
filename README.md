@@ -2,14 +2,14 @@
 
 [CS50 edX Course](https://www.edx.org/course/cs50s-web-programming-with-python-and-javascript)
 
-## [Project1](https://github.com/mxhsb/cs50_web/blob/master/project1/README.md)
+## [Project1](https://github.com/mxhsb/cs50_web/blob/master/project1)
 
-Python, Flask, ORM, API, SCSS  
+Flask, ORM, API, SCSS  
 
 Status: **Done**  
 
-## [Project3](https://github.com/mxhsb/cs50_web/blob/master/project3/README.md)
+## [Project3](https://github.com/mxhsb/cs50_web/blob/master/project3)
 
-Python, Django, RDB  
+Django, RDB  
 
 Status: **Ongoing**  
