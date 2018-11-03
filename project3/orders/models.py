@@ -15,7 +15,7 @@ class Pizza(models.Model):
     size = models.CharField(max_length=1, choices=SIZES)
 
     def __str__(self):
-        return f"({self.id}) {self.size} {self.type} Pizza"
+        return f"{self.size} {self.type} Pizza"
 
 class Topping(models.Model):
     '''Represents a topping addition. Default value is NULL'''
@@ -34,7 +34,7 @@ class Topping(models.Model):
     topping = models.CharField(max_length=20, null=True, blank=True, choices=TOPPINGS)
 
     def __str__(self):
-        return f"({self.id}) {self.topping} Topping"
+        return f"{self.topping} Topping"
     
 
 class Sub(models.Model):
@@ -58,7 +58,7 @@ class Sub(models.Model):
     sub = models.CharField(max_length=20, null=True, blank=True, choices=SUBS)
 
     def __str__(self):
-        return f"({self.id}) {self.size} {self.subs} Subs"
+        return f"{self.size} {self.subs} Subs"
 
 class Pasta(models.Model):
     '''Represents a pasta addition. Default value is NULL'''
@@ -70,7 +70,7 @@ class Pasta(models.Model):
     pasta = models.CharField(max_length=20, null=True, blank=True, choices=PASTA)
 
     def __str__(self):
-        return f"({self.id}) {self.pasta} Pasta"
+        return f"{self.pasta} Pasta"
 
 class Salad(models.Model):
     '''Represents a salad addition. Default value is NULL'''
@@ -83,7 +83,7 @@ class Salad(models.Model):
     salad = models.CharField(max_length=20, null=True, blank=True, choices=SALADS)
 
     def __str__(self):
-        return f"({self.id}) {self.salad} Salad"
+        return f"{self.salad} Salad"
 
 class DinnerPlatter(models.Model):
     '''Represents a dinner platter addition. Default value is NULL'''
@@ -103,7 +103,7 @@ class DinnerPlatter(models.Model):
     type = models.CharField(max_length=20, null=True, blank=True, choices=DINNER)
 
     def __str__(self):
-        return f"({self.id}) {self.size} {self.dinner} Dinner Platter"
+        return f"{self.size} {self.dinner} Dinner Platter"
 
 # All items
 class Order(models.Model):
@@ -120,10 +120,10 @@ class Order(models.Model):
 
         # Check for instance class presence
         t = su = p = sa = d = ""
-        if self.topping: t = " | " + f"{self.topping} Topping"
-        if self.sub: su = " | " + f"{self.sub} Sub"
-        if self.pasta: p = " | " + f"{self.pasta} Pasta"
-        if self.salad: sa = " | " + f"{self.salad} Salad"
-        if self.dinner: d = " | " + f"{self.dinner} Dinner Platter"
+        if self.topping: t = f" + {self.topping}"
+        if self.sub: su = f" + {self.sub}"
+        if self.pasta: p = f" + {self.pasta}"
+        if self.salad: sa = f" + {self.salad}"
+        if self.dinner: d = f" + {self.dinner}"
         
-        return f"({self.id}) {self.pizza} Pizza{t}{su}{p}{sa}{d}"
+        return f"({self.id}) {self.pizza}{t}{su}{p}{sa}{d}"
