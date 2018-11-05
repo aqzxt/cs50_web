@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    {% load sass_tags %}
+    <link href="{% sass_src 'orders/css/style.scss' %}" rel="stylesheet" type="text/css" />
+
+    {% comment %} {% load static %}
+    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}" type="text/css"/> {% endcomment %}
+</head>
+<body>
+    <header>
+        <h1>
+            {% block h1 %}
+            {% endblock %}
+        </h1>
+    </header>
+
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

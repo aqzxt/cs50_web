@@ -1,0 +1,21 @@
+{% extends 'orders/base.html' %}
+
+{% block title %}
+    My Orders | Pinochio's Pizza &amp; Subs
+{% endblock title %}
+
+
+{% block h1 %}
+    My Orders
+{% endblock h1 %}
+
+
+{% block body %}
+    <ul>
+        {% for o in orders %}
+            <li>
+                {{ o }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock body %}

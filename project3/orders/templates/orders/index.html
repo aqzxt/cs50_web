@@ -1,21 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Orders</title>
-    {% load sass_tags %}
-    <link href="{% sass_src 'orders/css/style.scss' %}" rel="stylesheet" type="text/css" />
+{% extends 'orders/base.html' %}
 
-    {% comment %} {% load static %}
-    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}" type="text/css"/> {% endcomment %}
-</head>
-<body>
-    <h1>My Orders Here</h1>
-    <ul>
-        {% for o in orders %}
-            <li>
-                {{ o }}
-            </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% block title %}
+Pinochio's Pizza &amp; Subs
+{% endblock title %}
+
+
+{% block h1 %}
+Welcome to Pinochio's Pizza &amp; Subs
+{% endblock h1 %}
+
+
+{% block body %}
+<div class="forms">
+    {% comment %} <div class="register"> {% endcomment %}
+        <p>Registration</p>
+        <form class="reg" name="register" action="{% url 'register_view' %}" method="POST">
+            {% csrf_token %}
+            <input name="reg_username" type="text" placeholder="Username">
+            <input name="reg_email" type="email" placeholder="Email address">
+            <input name="reg_password" type="password" placeholder="Password">
+            <button type="submit">Register</button>
+        </form>
+    {% comment %} </div>
+
+    <div class="login"> {% endcomment %}
+        <p>Login</p>
+        <form class="log" name="login" action="{% url 'login_view' %}" method="POST">
+            {% csrf_token %}
+            <input name="login_username" type="text" placeholder="Username">
+            <input name="login_password" type="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+    {% comment %} </div> {% endcomment %}
+</div>
+{% endblock body %}

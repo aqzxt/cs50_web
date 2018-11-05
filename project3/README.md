@@ -6,7 +6,7 @@
 
 ### 1. [x] Menu
 
-### 2. [ ] Adding Items
+### 2. [x] Adding Items
 
 ### 3. [ ] Registration, Login, Logout
 
