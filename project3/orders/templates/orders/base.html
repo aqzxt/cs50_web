@@ -5,7 +5,7 @@
 
     <title>
         {% block title %}
-        {% endblock %}
+        {% endblock title %}
     </title>
 
     {% load sass_tags %}
@@ -18,11 +18,14 @@
     <header>
         <h1>
             {% block h1 %}
-            {% endblock %}
+            {% endblock h1 %}
         </h1>
     </header>
-
+        
+    {% block logout_view %}
+    {% endblock logout_view %}
+    
     {% block body %}
-    {% endblock %}
+    {% endblock body %}
 </body>
 </html>

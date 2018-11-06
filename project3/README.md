@@ -8,12 +8,12 @@
 
 ### 2. [x] Adding Items
 
-### 3. [ ] Registration, Login, Logout
+### 3. [x] Registration, Login, Logout
 
-### 4. [ ] Shopping Cart
+### 4. [_] Shopping Cart
 
-### 5. [ ] Placing an Order
+### 5. [_] Placing an Order
 
-### 6. [ ] Viewing Orders
+### 6. [_] Viewing Orders
 
-### 7. [ ] Personal Touch
+### 7. [_] Personal Touch

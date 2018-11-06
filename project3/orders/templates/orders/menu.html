@@ -4,9 +4,15 @@
     Menu | Pinochio's Pizza &amp; Subs
 {% endblock title %}
 
+{% block logout_view %}
+<div class="logout">
+    <a href="{% url 'logout_view' %}" title="Logout" >Logout</a>
+</div>
+{% endblock logout_view %}
+
 
 {% block h1 %}
-
+Menu
 {% endblock h1 %}
 
 
