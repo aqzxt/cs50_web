@@ -11,7 +11,11 @@
 
 
 {% block body %}
+<div class="cart">
     {{ cart }}
+</div>
+
+<div class="orders">
     <ul>
         {% for o in orders %}
             <li>
@@ -19,4 +23,5 @@
             </li>
         {% endfor %}
     </ul>
+</div>
 {% endblock body %}

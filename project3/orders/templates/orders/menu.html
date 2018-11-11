@@ -24,19 +24,19 @@ Menu
             {% csrf_token %}
 
             <p class="pforms">Main selections</p>
-            {{ pizza }}<br>
+            {{ pizza.0 }}<br>
 
             {% comment %} Show Toppings Options accordingly {% endcomment %}
-            <div id="1top" hidden>{{ topping1 }}</div>
-            <div id="2top" hidden><br>{{ topping2 }}</div>
-            <div id="3top" hidden><br>{{ topping3 }}</div>
+            <div id="1top" hidden>{{ topping1.0 }}</div>
+            <div id="2top" hidden><br>{{ topping2.0 }}</div>
+            <div id="3top" hidden><br>{{ topping3.0 }}</div>
 
             <hr>
             <p class="pforms">Optionals</p>
-            {{ sub }}<br>
-            {{ pasta }}<br>
-            {{ salad }}<br>
-            {{ dinner }}<br>
+            {{ sub.0 }}<br>
+            {{ pasta.0 }}<br>
+            {{ salad.0 }}<br>
+            {{ dinner.0 }}<br>
 
             <button type="submit">Make an Order</button>
 
@@ -56,7 +56,7 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in Regular_p %}
+                            {% for i, k in regular_p %}
                             <tr>
                                 <td class="priced">{{ i }}</td>
                                 <td class="priced">{{ k.0 }}</td>
@@ -78,7 +78,7 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in Sicilian_p %}
+                            {% for i, k in sicilian_p %}
                             <tr>
                                 <td class="priced">{{ i }}</td>
                                 <td class="priced">{{ k.0 }}</td>
@@ -101,7 +101,7 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in Sub_p %}
+                            {% for i, k in sub_p %}
                             <tr>
                                 {% if forloop.counter|divisibleby:"2" %}
                                     <td class="td-bg">{{ i }}</td>
@@ -130,7 +130,7 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in Pasta_p %}
+                            {% for i, k in pasta_p %}
                             <tr>
                                 <td class="priced">{{ i }}</td>
                                 <td class="priced">{{ k }}</td>
@@ -152,7 +152,7 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in Salad_p %}
+                            {% for i, k in salad_p %}
                             <tr>
                                 <td class="priced">{{ i }}</td>
                                 <td class="priced">{{ k }}</td>
@@ -175,7 +175,7 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in Dinner_p %}
+                            {% for i, k in dinner_p %}
                             <tr>
                                 <td class="priced">{{ i }}</td>
                                 <td class="priced">{{ k.0 }}</td>
@@ -197,7 +197,7 @@ Menu
     <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    {% comment %} <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script> {% endcomment %}
 
     {% load static %}
     <script src="{% static 'orders/js/script.js' %}" type="text/javascript"></script>

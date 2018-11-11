@@ -1,5 +1,6 @@
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -52,80 +53,82 @@ def logout_view(request):
 def menu(request):
 
     if not request.user.is_anonymous:
-
         context = {
-            # Rerefence both callable (for template use) and non-callable (for use just below)
-            "pizza": (forms.PizzaForm(), None),
-            "topping1": (forms.ToppingForm1(), forms.ToppingForm1),
-            "topping2": (forms.ToppingForm2(), forms.ToppingForm2),
-            "topping3": (forms.ToppingForm3(), forms.ToppingForm3),
-            "sub": (forms.SubForm(), forms.SubForm),
-            "pasta": (forms.PastaForm(), forms.PastaForm),
-            "salad": (forms.SaladForm(), forms.SaladForm),
-            "dinner": (forms.DinnerPlatterForm(), forms.DinnerPlatterForm),
+
+            # key: tuple (Callable form, non-callable form, callable model)
+            "pizza": (forms.PizzaForm(), forms.PizzaForm, models.Pizza()),
+            "topping1": (forms.ToppingForm1(), forms.ToppingForm1, models.Topping1()),
+            "topping2": (forms.ToppingForm2(), forms.ToppingForm2, models.Topping2()),
+            "topping3": (forms.ToppingForm3(), forms.ToppingForm3, models.Topping3()),
+            "sub": (forms.SubForm(), forms.SubForm, models.Sub()),
+            "pasta": (forms.PastaForm(), forms.PastaForm, models.Pasta()),
+            "salad": (forms.SaladForm(), forms.SaladForm, models.Salad()),
+            "dinner": (forms.DinnerPlatterForm(), forms.DinnerPlatterForm, models.DinnerPlatter()),
+
             "order": (forms.OrderForm(), forms.OrderForm),
 
             # Reference prices table in template
-            "Regular_p": prices.Prices.regular.items(),
-            "Sicilian_p": prices.Prices.sicilian.items(),
-            "Sub_p": prices.Prices.sub.items(),
-            "Pasta_p": prices.Prices.pasta.items(),
-            "Salad_p": prices.Prices.salad.items(),
-            "Dinner_p": prices.Prices.dinner.items(),
+            "regular_p": prices.Prices.regular.items(),
+            "sicilian_p": prices.Prices.sicilian.items(),
+            "sub_p": prices.Prices.sub.items(),
+            "pasta_p": prices.Prices.pasta.items(),
+            "salad_p": prices.Prices.salad.items(),
+            "dinner_p": prices.Prices.dinner.items(),
 
             "user": request.user
         }
         if request.method == "POST":
-            pizza_form = forms.PizzaForm(request.POST)
 
-            # If form data is valid redirect user to shopping cart page
-            if pizza_form.is_valid():
-                new_pizza = pizza_form.save()
+            # Instantiate a new Order(); add username to order
+            order = models.Order()
+            order.username = request.user.username
+            primary_key = ''
+
+            # Loop through additions
+            for data in context.items():
+
+                # Context dict never changes, safe to assume when to break the loop
+                if data[0] == "regular_p": break
+
+                current_form = data[1][1](request.POST)
+                if current_form.is_valid():
+
+                    current_form.save()
+
+
+                    cleaned = current_form.cleaned_data
+                    if cleaned is not None:
+
+                        # Instantiate related model
+                        model = data[1][2]
+
+                        # Store pizza pk: main primary key
+                        if data[0] == "pizza": 
+                            primary_key = model.pk
+                        else:
+                            model.pk = primary_key
+
+                        # Add cleaned data to current model instance and save it to db
+                        for item in cleaned.items():
+                            setattr(model, item[0], item[1])
+                        model.save()
+
+                        # Add created model to order
+                        setattr(order, data[0], model)
+
+                else: # In case, there are no valid data submitted
+                    return messages.error(request, 'Error. You submitted invalid data.')
+
+            # Add to cart
+            try: my_cart
+            except NameError: my_cart = cart.Cart()
+
+            order.pk = primary_key
+            my_cart.add_order(primary_key, order)
+            context["cart"] = my_cart.get_order(primary_key)
                 
-                # Instantiate a new Order() and store primary key
-                order = models.Order()
-                order.pk = new_pizza.pk
-
-                # Convert form data to readable, instantiate Pizza() and add it to order
-                pizza_clean = pizza_form.cleaned_data.get('pizza')
-                pizza = models.Pizza(pizza_clean)
-                order.pizza = pizza
-
-                # Add username to order
-                order.username = get_user_model
-
-                # Loop through additions
-                for data in context.items():
-
-                    # Skip first
-                    if data[0] == "pizza": continue
-                    # Break loop when necessary
-                    if data[0] == "Regular_p": break
-
-                    current = data[1](request.POST)
-                    if current.is_valid():
-
-                        # Add Pizza pk to order instance and save
-                        current.pk = new_pizza.pk
-                        current.save()
-
-                        cleaned = current.cleaned_data.get(data[0])
-                        if cleaned is not None:
-
-                            # If valid data, then add to order
-                            setattr(order, data[0], cleaned)
-
-                # Add to cart
-                try:
-                    my_cart
-                except NameError:
-                    my_cart = cart.Cart()
-
-                my_cart.add_order(new_pizza.pk, order)
-                context["cart"] = my_cart
-                    
-                return render(request, "orders/cart.html", context)
-
+            return render(request, "orders/orders_cart.html", context)
+            
         # if method == GET
         return render(request, "orders/menu.html", context)
     
