@@ -9,17 +9,14 @@
     </title>
 
     {% load sass_tags %}
-    <link href="{% sass_src 'orders/css/style.scss' %}" rel="stylesheet" type="text/css" />
-
-    {% comment %} {% load static %}
-    <link rel="stylesheet" href="{% static 'orders/css/style.css' %}" type="text/css"/> {% endcomment %}
+    <link href="{% sass_src 'orders/css/style.scss' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
     <header>
-        <h1>
-            {% block h1 %}
-            {% endblock h1 %}
-        </h1>
+        <h3>
+            {% block heading %}
+            {% endblock heading %}
+        </h3>
     </header>
         
     {% block logout_view %}
@@ -27,5 +24,8 @@
     
     {% block body %}
     {% endblock body %}
+
+    {% block js %}
+    {% endblock js %}
 </body>
 </html>

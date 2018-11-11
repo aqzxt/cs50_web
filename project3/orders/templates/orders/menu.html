@@ -1,21 +1,204 @@
 {% extends 'orders/base.html' %}
 
 {% block title %}
-    Menu | Pinochio's Pizza &amp; Subs
+Menu | Pinochio's Pizza &amp; Subs
 {% endblock title %}
 
 {% block logout_view %}
-<div class="logout">
-    <a href="{% url 'logout_view' %}" title="Logout" >Logout</a>
-</div>
+<div class="logout"><a href="{% url 'logout' %}" title="Logout" >Logout</a></div>
 {% endblock logout_view %}
 
-
-{% block h1 %}
+{% block heading %}
 Menu
-{% endblock h1 %}
-
+{% endblock heading %}
 
 {% block body %}
+<div class="menu-body">
+
+    {{ message|default:"" }}
+    <h4>Hello, {{ user.username }}</h4>
+        <p>Currently logged in as: {{ user.email }}</p>
+
+    <div class="menu-forms">
+        <form action="{% url 'menu' %}" method="POST">
+            {% csrf_token %}
+
+            <p class="pforms">Main selections</p>
+            {{ pizza }}<br>
+
+            {% comment %} Show Toppings Options accordingly {% endcomment %}
+            <div id="1top" hidden>{{ topping1 }}</div>
+            <div id="2top" hidden><br>{{ topping2 }}</div>
+            <div id="3top" hidden><br>{{ topping3 }}</div>
+
+            <hr>
+            <p class="pforms">Optionals</p>
+            {{ sub }}<br>
+            {{ pasta }}<br>
+            {{ salad }}<br>
+            {{ dinner }}<br>
+
+            <button type="submit">Make an Order</button>
+
+        </form>
+    </div>
+
+<div class="prices-table panel-group" id="accordion">
+    <h5>Prices Table</h5>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="panel-title bg">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#regular" active>
+                    Regular Pizzas</a>
+                </p>
+            </div>
+            <div id="regular" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <table>
+                        <tbody>
+                            {% for i, k in Regular_p %}
+                            <tr>
+                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k.0 }}</td>
+                                <td class="priced">{{ k.1 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="panel-title bg">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#sicilian" active>
+                    Sicilian Pizzas</a>
+                </p>
+            </div>
+            <div id="sicilian" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <table>
+                        <tbody>
+                            {% for i, k in Sicilian_p %}
+                            <tr>
+                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k.0 }}</td>
+                                <td class="priced">{{ k.1 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="panel-title bg">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#subs">
+                    Subs</a>
+                </p>
+            </div>
+            <div id="subs" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table>
+                        <tbody>
+                            {% for i, k in Sub_p %}
+                            <tr>
+                                {% if forloop.counter|divisibleby:"2" %}
+                                    <td class="td-bg">{{ i }}</td>
+                                    <td class="td-bg">{{ k.0 }}</td>
+                                    <td class="td-bg">{{ k.1 }}</td>
+                                {% else %}
+                                    <td>{{ i }}</td>
+                                    <td>{{ k.0 }}</td>
+                                    <td>{{ k.1 }}</td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#pastas">
+                    Pastas</a>
+                </p>
+            </div>
+            <div id="pastas" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table>
+                        <tbody>
+                            {% for i, k in Pasta_p %}
+                            <tr>
+                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="panel-title bg">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#salads">
+                    Salads</a>
+                </p>
+            </div>
+            <div id="salads" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table>
+                        <tbody>
+                            {% for i, k in Salad_p %}
+                            <tr>
+                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#dinners">
+                    Dinner Platters</a>
+                </p>
+            </div>
+            <div id="dinners" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table>
+                        <tbody>
+                            {% for i, k in Dinner_p %}
+                            <tr>
+                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k.0 }}</td>
+                                <td class="priced">{{ k.1 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
 
 {% endblock body %}
+
+{% block js %}
+    <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    {% load static %}
+    <script src="{% static 'orders/js/script.js' %}" type="text/javascript"></script>
+{% endblock js %}

@@ -5,7 +5,9 @@ from .models import *
 
 admin.site.register(Order)
 admin.site.register(Pizza)
-admin.site.register(Topping)
+admin.site.register(Topping1)
+admin.site.register(Topping2)
+admin.site.register(Topping3)
 admin.site.register(Sub)
 admin.site.register(Pasta)
 admin.site.register(Salad)

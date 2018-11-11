@@ -10,10 +10,10 @@
 
 ### 3. [x] Registration, Login, Logout
 
-### 4. [_] Shopping Cart
+### 4. [x] Shopping Cart
 
-### 5. [_] Placing an Order
+### 5. [x] Placing an Order
 
-### 6. [_] Viewing Orders
+### 6. [x] Viewing Orders
 
 ### 7. [_] Personal Touch
