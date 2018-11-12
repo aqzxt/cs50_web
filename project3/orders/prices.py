@@ -1,5 +1,6 @@
 class Prices:
     '''Prices for pizzas and its additions'''
+    
     # dict = {type: (price for small", "price for large)}
     regular = {
         'CHEESE':("12.20", "17.45"),

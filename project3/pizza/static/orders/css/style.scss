@@ -2,10 +2,11 @@ html,
 body {
     background: radial-gradient(circle, white, lightgreen);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: auto;
-    margin-right: auto;
     position: relative;
     max-width: 90vw;
+    .heading {
+        margin-left: 40px;
+    }
     .index-forms {
         select {
             margin: 5px;
@@ -21,8 +22,11 @@ body {
         }
     }
     .menu-body {
-        .prices-table {
-            float: left;
+        display: flex;
+        flex-direction: row;
+        .menu-prices {
+            flex-grow: 3;
+            margin-top: -40px;
             .panel-title {
                 font-size: 1.5rem;
             }
@@ -42,7 +46,23 @@ body {
             }
         }
         .menu-forms {
-            float: right;
+            flex-grow: 3;
+            margin: 10px 0 0 40px;
+            label {
+                display: inline-block;
+            }
+            select {
+                margin: 3px 0 3px 0;
+            }
+            .add-cart {
+                margin: 30px 0 0 40px;
+                background-color: rgb(77, 183, 224);
+                color: white;
+                font-weight: 700;
+                padding: 5px 10px 5px 10px;
+                border-radius: 3px;
+                box-shadow: 1px black;
+            }
         }
     }
     .logout {

@@ -15,12 +15,12 @@ Menu
 {% block body %}
 <div class="menu-body">
 
-    {{ message|default:"" }}
-    
-    <h4>Hello, {{ user.username }}</h4>
-        <p>Currently logged in as: {{ user.email }}</p>
-
     <div class="menu-forms">
+        {{ message|default:"" }}
+        
+        <h4>Hello, {{ user.username }}</h4>
+            <p>Currently logged in as: {{ user.email }}</p>
+
         <form action="{% url 'menu' %}" method="POST">
             {% csrf_token %}
 
@@ -39,12 +39,12 @@ Menu
             {{ salad.0 }}<br>
             {{ dinner.0 }}<br>
 
-            <button type="submit">Make an Order</button>
+            <button class="add-cart" type="submit">Add to Cart</button>
 
         </form>
     </div>
 
-<div class="prices-table panel-group" id="accordion">
+<div class="menu-prices panel-group" id="accordion">
     <h5>Prices Table</h5>
         <div class="panel panel-default">
             <div class="panel-heading">

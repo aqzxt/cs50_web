@@ -20,13 +20,8 @@
 
 <div class="orders">
     
-    {{ get_orders }}
-    {% comment %} <ul>
-        {% for o in orders %}
-            <li>
-                {{ o }}
-            </li>
-        {% endfor %}
-    </ul> {% endcomment %}
+    {% comment %} {% for o in get_order %}
+        {{ o.as_ul }}
+    {% endfor %} {% endcomment %}
 </div>
 {% endblock body %}

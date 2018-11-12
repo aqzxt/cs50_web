@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib import messages
+# from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -95,18 +95,11 @@ def menu(request):
 
                     current_form.save()
                     cleaned = current_form.cleaned_data
-                    print('==========================',current_form,'=============================')
                     if cleaned is not None:
 
                         # Instantiate related model
                         model = data[1][2]
 
-                        # Store pizza pk: main primary key
-                        if data[0] == "pizza": 
-                            primary_key = model.pk
-                        else:
-                            model.pk = primary_key
-                        
                         is_none = False
                         # Add cleaned data to current model instance and save it to db
                         for item in cleaned.items():
@@ -119,6 +112,11 @@ def menu(request):
                         # Make sure there are only valid data
                         if not is_none:
                             model.save()
+
+                            # Store pizza pk: main primary key
+                            if data[0] == "pizza": 
+                                primary_key = model.pk
+                            model.pk = primary_key
 
                             # Add created model to order
                             setattr(order, data[0], model)
@@ -134,11 +132,9 @@ def menu(request):
             order.pk = primary_key
             my_cart.add_order(primary_key, order)
 
-            print(my_cart)
-
-            # Store cart and orders
+            # Store cart and orders for rendering
             context['get_cart'] = my_cart.get_cart()
-            context['get_orders'] = my_cart.get_order(primary_key)
+            context['get_order'] = my_cart.get_order(primary_key)
 
             return render(request, "orders/myorders.html", context)
             
@@ -154,9 +150,7 @@ def myorders(request):
 
         context = {
             "orders": models.Order.objects.all(),
-            "message": 'Your credentials was not valid.',
-            # 'myorders': request.session['get_orders'],
-            # 'mycart': request.session['get_cart']
+            "message": 'Your credentials was not valid.'
         }
         return render(request, "orders/myorders.html")
 

@@ -2,12 +2,6 @@ from django import forms
 from django.forms import ModelForm
 from .models import *
 
-# class OrderForm(ModelForm):
-#     class Meta:
-#         model = Order
-#         fields = '__all__'
-
-
 class PizzaForm(ModelForm):
     class Meta:
         model = Pizza
@@ -18,33 +12,15 @@ class ToppingForm1(ModelForm):
         model = Topping1
         fields = '__all__'
     
-    def __init__(self, *args, **kwargs):
-        super(ToppingForm1, self).__init__(*args, **kwargs)
-        self.fields['toppings'].widget.attrs.update({
-            'class': 'topping1',
-        })
-
 class ToppingForm2(ModelForm):
     class Meta:
         model = Topping2
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(ToppingForm2, self).__init__(*args, **kwargs)
-        self.fields['toppings'].widget.attrs.update({
-            'class': 'topping2',
-        })
-
 class ToppingForm3(ModelForm):
     class Meta:
         model = Topping3
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(ToppingForm3, self).__init__(*args, **kwargs)
-        self.fields['toppings'].widget.attrs.update({
-            'class': 'topping3',
-        })
 
 class SubForm(ModelForm):
     class Meta:
