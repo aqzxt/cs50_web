@@ -16,6 +16,7 @@ Menu
 <div class="menu-body">
 
     {{ message|default:"" }}
+    
     <h4>Hello, {{ user.username }}</h4>
         <p>Currently logged in as: {{ user.email }}</p>
 
@@ -197,7 +198,7 @@ Menu
     <!-- <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    {% comment %} <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script> {% endcomment %}
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 
     {% load static %}
     <script src="{% static 'orders/js/script.js' %}" type="text/javascript"></script>

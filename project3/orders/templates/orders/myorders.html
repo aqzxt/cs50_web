@@ -12,16 +12,21 @@
 
 {% block body %}
 <div class="cart">
-    {{ cart }}
+    {{ get_cart }}
+    
 </div>
 
+<hr>
+
 <div class="orders">
-    <ul>
+    
+    {{ get_orders }}
+    {% comment %} <ul>
         {% for o in orders %}
             <li>
                 {{ o }}
             </li>
         {% endfor %}
-    </ul>
+    </ul> {% endcomment %}
 </div>
 {% endblock body %}

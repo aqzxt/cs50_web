@@ -1,5 +1,5 @@
 class Cart:
-    '''Save user orders in a dictionary'''
+    '''Save UNCONFIRMED orders in a dictionary'''
 
     def __init__(self):
         self.cart = {}

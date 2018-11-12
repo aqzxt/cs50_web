@@ -94,9 +94,8 @@ def menu(request):
                 if current_form.is_valid():
 
                     current_form.save()
-
-
                     cleaned = current_form.cleaned_data
+                    print('==========================',current_form,'=============================')
                     if cleaned is not None:
 
                         # Instantiate related model
@@ -107,17 +106,26 @@ def menu(request):
                             primary_key = model.pk
                         else:
                             model.pk = primary_key
-
+                        
+                        is_none = False
                         # Add cleaned data to current model instance and save it to db
                         for item in cleaned.items():
+                            
+                            if item[1] is None:
+                                is_none = True
+                                break
                             setattr(model, item[0], item[1])
-                        model.save()
+                        
+                        # Make sure there are only valid data
+                        if not is_none:
+                            model.save()
 
-                        # Add created model to order
-                        setattr(order, data[0], model)
+                            # Add created model to order
+                            setattr(order, data[0], model)
 
-                else: # In case, there are no valid data submitted
-                    return messages.error(request, 'Error. You submitted invalid data.')
+                # else: # In case, there are no valid data submitted
+                #     context["message"] = 'Error. You submitted invalid data.'
+                #     return render(request, "orders/menu.html", context)
 
             # Add to cart
             try: my_cart
@@ -125,9 +133,14 @@ def menu(request):
 
             order.pk = primary_key
             my_cart.add_order(primary_key, order)
-            context["cart"] = my_cart.get_order(primary_key)
-                
-            return render(request, "orders/orders_cart.html", context)
+
+            print(my_cart)
+
+            # Store cart and orders
+            context['get_cart'] = my_cart.get_cart()
+            context['get_orders'] = my_cart.get_order(primary_key)
+
+            return render(request, "orders/myorders.html", context)
             
         # if method == GET
         return render(request, "orders/menu.html", context)
@@ -135,13 +148,16 @@ def menu(request):
     return render(request, "orders/index.html", {"message": 'Your credentials was not valid.'})
 
 
-def orders_cart(request):
-    context = {
-        "orders": models.Order.objects.all(),
-        "message": 'Your credentials was not valid.'
-    }
+def myorders(request):
     if not request.user.is_anonymous:
         # if request.method == "POST":
-        return render(request, "orders/myorders.html", context)
 
-    return render(request, "orders/index.html", context)
+        context = {
+            "orders": models.Order.objects.all(),
+            "message": 'Your credentials was not valid.',
+            # 'myorders': request.session['get_orders'],
+            # 'mycart': request.session['get_cart']
+        }
+        return render(request, "orders/myorders.html")
+
+    return render(request, "orders/index.html", {"message": 'Your credentials was not valid.'})
