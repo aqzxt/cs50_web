@@ -68,12 +68,12 @@ def menu(request):
             "order": (forms.OrderForm(), forms.OrderForm),
 
             # Reference prices table in template
-            "regular_p": prices.Prices.regular.items(),
-            "sicilian_p": prices.Prices.sicilian.items(),
-            "sub_p": prices.Prices.sub.items(),
-            "pasta_p": prices.Prices.pasta.items(),
-            "salad_p": prices.Prices.salad.items(),
-            "dinner_p": prices.Prices.dinner.items(),
+            "regular_p": prices.Prices.regular.values(),
+            "sicilian_p": prices.Prices.sicilian.values(),
+            "sub_p": prices.Prices.sub.values(),
+            "pasta_p": prices.Prices.pasta.values(),
+            "salad_p": prices.Prices.salad.values(),
+            "dinner_p": prices.Prices.dinner.values(),
 
             "user": request.user
         }
@@ -95,7 +95,10 @@ def menu(request):
 
                     current_form.save()
                     cleaned = current_form.cleaned_data
+
                     if cleaned is not None:
+                        # Valid "cleaned" output
+                        # {'pizzas': 'REG', 'pizza_size': 'S', 'toppings_options': 'SPECIAL'}
 
                         # Instantiate related model
                         model = data[1][2]
@@ -103,12 +106,14 @@ def menu(request):
                         is_none = False
                         # Add cleaned data to current model instance and save it to db
                         for item in cleaned.items():
+                            # item is a tuple (key, value)
                             
                             if item[1] is None:
                                 is_none = True
                                 break
+
                             setattr(model, item[0], item[1])
-                        
+
                         # Make sure there are only valid data
                         if not is_none:
                             model.save()
@@ -132,9 +137,14 @@ def menu(request):
             order.pk = primary_key
             my_cart.add_order(primary_key, order)
 
+            print(order)
+            cost = prices.Prices()
+            cost.get_total(order)
+
             # Store cart and orders for rendering
             context['get_cart'] = my_cart.get_cart()
-            context['get_order'] = my_cart.get_order(primary_key)
+            context['get_items_prices'] = cost.cost
+            context['get_total'] = cost.total
 
             return render(request, "orders/myorders.html", context)
             
@@ -152,6 +162,6 @@ def myorders(request):
             "orders": models.Order.objects.all(),
             "message": 'Your credentials was not valid.'
         }
-        return render(request, "orders/myorders.html")
+        return render(request, "orders/myorders.html", context)
 
     return render(request, "orders/index.html", {"message": 'Your credentials was not valid.'})

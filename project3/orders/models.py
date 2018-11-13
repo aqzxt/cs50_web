@@ -1,5 +1,9 @@
 from django.db import models
 
+## =====================
+## TO DO: Replace all additions into one model only
+## =====================
+
 class Pizza(models.Model):
     '''Represents the main order: pizza.'''
 
@@ -64,18 +68,25 @@ class Sub(models.Model):
     '''Represents a submarine sandwich addition. Default value is NULL'''
     
     SUBS = (
-        ('CHEESE', 'Cheese'), ('CHEESEBURGER', 'Cheeseburger'), 
+        ('CHEESE', 'Cheese'),
+        ('CHEESEBURGER', 'Cheeseburger'), 
         ('CHICKEN PARM', 'Chicken Parmigiana'),
         ('EGGPLANT PARM', 'Eggplant Parmigiana'), 
-        ('XCHEESE', 'Extra Cheese on any subs'),
-        ('FRIED CHICKEN', 'Fried Chicken'), ('HAM_CHEESE', 'Ham + Cheese'),
-        ('HAMBURGER', 'Hamburger'), ('ITALIAN', 'Italian'),
-        ('MEATBALL', 'Meatball'), ('SAPEON', 'Sausage, Peppers & Onions'),
-        ('STEAK', 'Steak'), ('STEAK_CHEESE', 'Steak + Cheese'),
+        ('FRIED CHICKEN', 'Fried Chicken'),
+        ('HAM_CHEESE', 'Ham + Cheese'),
+        ('HAMBURGER', 'Hamburger'),
+        ('ITALIAN', 'Italian'),
+        ('MEATBALL', 'Meatball'),
+        ('SAPEON', 'Sausage, Peppers & Onions'),
+        ('STEAK', 'Steak'),
+        ('STEAK_CHEESE', 'Steak + Cheese'),
         ('STEAK_GPEPPERS', 'Steak + Green Peppers'), 
         ('STEAK_MUSHROOMS', 'Steak + Mushrooms'),
         ('STEAK_ONIONS', 'Steak + Onions'), 
-        ('TUNA', 'Tuna'), ('TURKEY', 'Turkey'), ('VEGGIE', 'Veggie')
+        ('TUNA', 'Tuna'),
+        ('TURKEY', 'Turkey'),
+        ('VEGGIE', 'Veggie'),
+        ('XCHEESE', 'Extra Cheese on any subs')
     )
     SIZES = (
         ('S', 'Small'),
@@ -106,7 +117,7 @@ class Salad(models.Model):
     '''Represents a salad addition. Default value is NULL'''
 
     SALADS = (
-        ('GARDEN','Garden Salad'),
+        ('GARDEN', 'Garden Salad'),
         ('GREEK', 'Greek Salad'),
         ('ANTIPASTO', 'Antipasto'),
         ('TUNA', 'Salad w/ Tuna')

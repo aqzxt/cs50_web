@@ -57,9 +57,9 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in regular_p %}
+                            {% for k in regular_p %}
                             <tr>
-                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k.2 }}</td>
                                 <td class="priced">{{ k.0 }}</td>
                                 <td class="priced">{{ k.1 }}</td>
                             </tr>
@@ -79,9 +79,9 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in sicilian_p %}
+                            {% for k in sicilian_p %}
                             <tr>
-                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k.2 }}</td>
                                 <td class="priced">{{ k.0 }}</td>
                                 <td class="priced">{{ k.1 }}</td>
                             </tr>
@@ -102,14 +102,14 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in sub_p %}
+                            {% for k in sub_p %}
                             <tr>
                                 {% if forloop.counter|divisibleby:"2" %}
-                                    <td class="td-bg">{{ i }}</td>
+                                    <td class="td-bg">{{ k.2 }}</td>
                                     <td class="td-bg">{{ k.0 }}</td>
                                     <td class="td-bg">{{ k.1 }}</td>
                                 {% else %}
-                                    <td>{{ i }}</td>
+                                    <td>{{ k.2 }}</td>
                                     <td>{{ k.0 }}</td>
                                     <td>{{ k.1 }}</td>
                                 {% endif %}
@@ -131,10 +131,10 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in pasta_p %}
+                            {% for k in pasta_p %}
                             <tr>
-                                <td class="priced">{{ i }}</td>
-                                <td class="priced">{{ k }}</td>
+                                <td class="priced">{{ k.1 }}</td>
+                                <td class="priced">{{ k.0 }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -153,10 +153,10 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in salad_p %}
+                            {% for k in salad_p %}
                             <tr>
-                                <td class="priced">{{ i }}</td>
-                                <td class="priced">{{ k }}</td>
+                                <td class="priced">{{ k.1 }}</td>
+                                <td class="priced">{{ k.0 }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -176,9 +176,9 @@ Menu
                 <div class="panel-body">
                     <table>
                         <tbody>
-                            {% for i, k in dinner_p %}
+                            {% for k in dinner_p %}
                             <tr>
-                                <td class="priced">{{ i }}</td>
+                                <td class="priced">{{ k.2 }}</td>
                                 <td class="priced">{{ k.0 }}</td>
                                 <td class="priced">{{ k.1 }}</td>
                             </tr>
