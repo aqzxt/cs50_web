@@ -17,6 +17,13 @@
 
 <div class="book-body">
 
+    {% if title %}
+
+    <h3>{{ title }}</h3>
+    <p>{{ msg }}</p><br>
+
+    {% endif %}
+
     <p>List of books you reviewed and/or rated:</p>
     <table class="table table-striped">
         <thead>

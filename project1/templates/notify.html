@@ -6,7 +6,15 @@
 
 {% block body %}
 
-{{ msg }}
-<hr>
-<p><a href="{{ url_for("main") }}">Homepage</a></p>
+    {{ msg }}
+    <hr>
+
+    {% if logged %}
+    <p><a href="{{ url_for("search") }}" title="Search">New search</a><br>
+    <a class="logout" href="{{ url_for("logout") }}" title="Sign out">Logout</a></p>
+
+    {% else %}
+    <p><a href="{{ url_for("main") }}">Homepage</a></p>
+    {% endif %}
+
 {% endblock %}

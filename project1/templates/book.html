@@ -34,10 +34,11 @@
             <p>Add your opinion about the book:</p>
             <input class="form-control" type="text" name="opinion" placeholder="Enter a review (optional)">
         </div>
+        <br>
 
         <div class="f2">
             <p>Rate the book from 1 to 5:</p>
-            <select class="form-control" name="rate">
+            <select class="form-control" name="rate" required>
                 {% for num in numbers %}
                 <option value="{{ num }}">{{ num }}</option>
                 {% endfor %}

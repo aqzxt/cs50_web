@@ -19,7 +19,6 @@ db.init_app(app)
 Scss(app, static_dir='static', asset_dir='./static')
 
 
-
 # Homepage/Login/Registration page
 @app.route("/", methods=["GET", "POST"])
 def main():
@@ -88,7 +87,7 @@ def members():
         return render_template("notify.html", title="Invalid selection", msg="Category not selected or invalid query text.")
 
     # If method == "GET"
-    return render_template("members.html", email=session.get("email"), name=session.get("id"))
+    return render_template("members.html", email=session.get("email"), name=session.get("name"))
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -112,7 +111,7 @@ def search():
         for item in obj: results.append(item)
         return render_template("search.html", category=category, query=query, results=results)
 
-    return render_template("members.html", email=session.get("email"), name=session.get("id"))
+    return render_template("members.html", email=session.get("email"), name=session.get("name"))
     
 
 
@@ -158,17 +157,14 @@ def book(book_id):
     opinion = request.form.get("opinion")
     rate = request.form.get("rate")
 
-    if not rate or not opinion:
+    if not rate:
         return render_template("notify.html", title="Invalid input", msg="Review or rate cannot be empty.")
 
     # for item in user_reviews:
-
     #     if item.user_id == user_id:
-
     #         a = item.isbn; b = book.isbn
     #         while len(a) < len(b):
     #             a = "0" + str(a)
-
     #         if a == b:
     #             return render_template("notify.html", title="Reviewed already sent", msg="Only one review per book is allowed.")
 
@@ -177,11 +173,13 @@ def book(book_id):
     db.session.add(user_reviews)
     db.session.commit()
 
-    return render_template("notify.html", title="Submitted", msg="Your review were successfully sent.")
+    user_reviews = Reviews.query.filter_by(user_id=user_id).all()
+
+    return render_template("reviews.html", user_reviews=user_reviews, title="Review submitted", msg="Our database has recorded your review. See below.", logged=True)
 
 
 
-@app.route("/reviews", methods=["GET"])
+@app.route("/reviews", methods=["GET", "POST"])
 def reviews():
 
     # Check if user is logged in before accessing the book page
@@ -192,11 +190,11 @@ def reviews():
     user_reviewed = db.session.query(db.session.query(Reviews).filter_by(user_id=user_id).exists()).scalar()
 
     if user_reviewed:
-        user_reviews = Reviews.query.filter_by(user_id=user_id)
+        user_reviews = Reviews.query.filter_by(user_id=user_id).all()
 
-        return render_template("reviews.html", user_reviews=user_reviews)
+        return render_template("reviews.html", user_reviews=user_reviews, logged=True)
 
-    return render_template("notify.html", title="No reviews found", msg="You didn't submit any reviews yet.")
+    return render_template("notify.html", title="No reviews found", msg="You didn't submit any reviews yet.", logged=True)
 
 
 
