@@ -1,5 +1,14 @@
 from flask_sqlalchemy import SQLAlchemy
 
+'''SQLite3 SCHEMA
+
+    CREATE TABLE users (id INTEGER PRIMARY KEY NOT NULL, name TEXT NOT NULL, email CHAR(50) NOT NULL, password CHAR(50) NOT NULL);
+
+    CREATE TABLE books (id INTEGER PRIMARY KEY, isbn CHAR(30) NOT NULL, title TEXT NOT NULL, author TEXT NOT NULL, year INT NOT NULL);
+    
+    CREATE TABLE reviews (id INTEGER PRIMARY KEY, opinion CHAR(500), rate INTEGER NOT NULL, isbn INT NOT NULL, user_id INT NOT NULL, FOREIGN KEY(isbn) REFERENCES books(isbn), FOREIGN KEY(user_id) REFERENCES users(id));
+'''
+
 db = SQLAlchemy()
 
 class Books(db.Model):

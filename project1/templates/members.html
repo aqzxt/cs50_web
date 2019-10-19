@@ -2,6 +2,9 @@
 
 {% block heading %}
 <h2 class="members-header">Member's area</h2>
+
+<p><a href="{{ url_for("reviews") }}" title="Reviews">My reviews</a><br>
+<a class="logout" href="{{ url_for("logout") }}" title="Sign out">Logout</a></p>
 {% endblock %}
 
 
@@ -9,12 +12,11 @@
 <div class="members-body">
 
     <div class="members-section">
-        <p>Welcome, {{ name }}.</p>
-        <p>You are logged as {{ email }}.</p>
+        <p>Welcome <b>{{ name }}</b>!</p>
         <hr>
     </div>
 
-    <p>To search for a book, pick a category: ISBN, Title or Author</p>
+    <p>To search for a book, pick a category: ISBN, Title, Author or Year</p>
     <form action="{{ url_for("search") }}" method="POST">
         <select class="form-control" name="category">
             <option value="isbn">ISBN</option>
@@ -26,9 +28,6 @@
         <input class="form-control" name="query" type="search" placeholder="Type in here">
         <button class="btn btn-primary">Search</button>
     </form>
-
-    <hr>
-    <a href="{{ url_for("logout") }}" title="Sign out">Logout</a>
 
 </div>
 

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+<div class="books-header">
+
+<h2>My Reviews</h2>
+
+<p><a href="{{ url_for("search") }}" title="Search">New search</a><br>
+<a class="logout" href="{{ url_for("logout") }}" title="Sign out">Logout</a></p>    
+<hr>
+    
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="book-body">
+
+    <p>List of books you reviewed and/or rated:</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ISBN</th>
+                <th scope="col">Review</th>
+                <th scope="col">Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in user_reviews %}
+                <tr>
+                    <th scope="row">{{ item.isbn }}</th>
+                    <td>{{ item.opinion }}</td>
+                    <td>{{ item.rate }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

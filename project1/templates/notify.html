@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 
 {% block heading %}
-{{ title }}
+<h2>{{ title }}</h2>
 {% endblock %}
 
 {% block body %}
 
 {{ msg }}
-<a href="{{ url_for("main") }}">Go back to the homepage.</a>
+<hr>
+<p><a href="{{ url_for("main") }}">Homepage</a></p>
 {% endblock %}

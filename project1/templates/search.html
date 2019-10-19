@@ -3,8 +3,11 @@
 {% block heading %}
 
 <div class="search-header">
-    <h3>Search</h3>
-    <a class="logout" href="{{ url_for("logout") }}" title="Sign out">Logout</a>
+    <h2>Search</h2>
+
+    <p><a href="{{ url_for("search") }}" title="Search">New search</a><br>
+    <a href="{{ url_for("reviews") }}" title="Reviews">My reviews</a><br>
+    <a class="logout" href="{{ url_for("logout") }}" title="Sign out">Logout</a></p>
 </div>
 
 {% endblock %}
@@ -14,8 +17,9 @@
 
 <div class="search-body">
     
+
     {% if results %}
-    <p>Showing results for a book {{ category }}: "{{ query }}":</p>
+    <p>Showing results for the term "<b>{{ query }}</b>" in the category "<b>{{ category }}</b>":</p>
         <table class="table table-striped">
             <thead>
                 <tr class="search-table-main">

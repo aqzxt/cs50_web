@@ -6,11 +6,16 @@ from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 # Check for environment variable
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
+# if not os.getenv("DATABASE_URI"):
+#     raise RuntimeError("DATABASE_URI is not set")
+
+db_path = os.path.join(os.path.dirname(__file__), 'db.sqlite3')
+DATABASE_URI = 'sqlite:///{}'.format(db_path)
 
 # Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
+# engine = create_engine(os.getenv("DATABASE_URI"))
+
+engine = create_engine(DATABASE_URI)
 db = scoped_session(sessionmaker(bind=engine))
 
 # Import db
@@ -23,7 +28,7 @@ def main():
         {"isbn":isbn, "title":title, "author":author, "year":year})
     db.commit()
     file.close()
-    print("Database 'books' created")
+    print("Database 'books' imported")
 
 
 

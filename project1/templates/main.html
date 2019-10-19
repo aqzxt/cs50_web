@@ -2,11 +2,16 @@
 
 {% block heading %}
 
-<h2 class="title">Book Reviews 2.0</h2>
+<h2 class="title">Goodreads Review</h2><br>
+<hr>
 
 {% endblock %}
 
 {% block body %}
+
+<p>Search and submit reviews for your favorite book.<br>
+    Categories available: ISBN (Goodreads ID), Book Title, Author and Year.<br>
+    View how many real Goodreads' reviews and average rate each book has!</p>
 
 <div class="home">
     <!--{% if msg %} {{ msg }} {% endif %}-->
@@ -16,19 +21,19 @@
     <form class="register" action="{{ url_for("main") }}" method="POST">
         <!-- name="username" "email" "password" property is for Python reference -->
 
-        <input class="ip-bt" type="text" name="name_register" placeholder="Enter Your Name">
-        <input class="ip-bt" type="email" name="email_register" placeholder="Enter Your Email">
-        <input class="ip-bt" type="password" name="password_register" placeholder="Enter Your Password">
+        <input class="ip-bt" type="text" name="name_register" placeholder="Name"><br>
+        <input class="ip-bt" type="email" name="email_register" placeholder="Email"><br>
+        <input class="ip-bt" type="password" name="password_register" placeholder="Password"><br>
         <button class="ip-bt">Register</button>
     </form>
     <hr>
 
-    <h3>Login</h3>
     Already a member?
+    <h3>Login</h3>
     
     <form class="login" action="{{ url_for("main") }}" method="POST">
-        <input class="ip-bt" type="text" name="email_login" placeholder="Your Email">
-        <input class="ip-bt" type="password" name="password_login" placeholder="Your Password">
+        <input class="ip-bt" type="text" name="email_login" placeholder="Email"><br>
+        <input class="ip-bt" type="password" name="password_login" placeholder="Password"><br>
         <button class="ip-bt">Login</button>
     </form>
 

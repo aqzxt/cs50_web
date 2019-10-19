@@ -5,12 +5,11 @@ from flask_scss import Scss
 
 from models import *
 
-if not os.getenv("DATABASE_URL"): raise RuntimeError("DATABASE_URL is not set")
-
-GOODREADS_APIKEY = os.getenv("GOODREADS_APIKEY")
+GOODREADS_API = os.getenv("GOODREADS_API")
+DATABASE_URI = os.getenv("DATABASE_URI")
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URI
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -19,7 +18,9 @@ db.init_app(app)
 
 Scss(app, static_dir='static', asset_dir='./static')
 
-# Homepage/Login/Register page
+
+
+# Homepage/Login/Registration page
 @app.route("/", methods=["GET", "POST"])
 def main():
     # Login form user input
@@ -35,6 +36,7 @@ def main():
         # FOR LOGIN
         # Search for user/password in db
         user = Users.query.filter_by(email=email_login, password=password_login).first()
+
         if user:
             # Create and/or store user session credentials
             if session.get("email") is None:
@@ -104,15 +106,20 @@ def search():
         except:
             return render_template("notify.html", title="Invalid year", msg="Please, go back and try again.")
 
-    obj = Books.query.filter(getattr(Books, category).ilike("%" + query + "%"))
-    results = []
-    for item in obj: results.append(item)
-    return render_template("search.html", category=category, query=query, results=results)
+    if query:
+        obj = Books.query.filter(getattr(Books, category).ilike("%" + query + "%"))
+        results = []
+        for item in obj: results.append(item)
+        return render_template("search.html", category=category, query=query, results=results)
+
+    return render_template("members.html", email=session.get("email"), name=session.get("id"))
+    
 
 
 @app.route("/search/<int:book_id>", methods=["GET","POST"])
 def book(book_id):
     query = session.get("query")
+
     # Check if user is logged in before accessing the book page
     if session.get("id") is None:
         return render_template("notify.html", title="Missing user credentials", msg="Please, go to the homepage to login.")
@@ -122,46 +129,82 @@ def book(book_id):
         return render_template("notify.html", title="Error", msg="Invalid book id")
 
     user_id = session.get("id")
-    user_reviews = Reviews.query.filter_by(user_id=user_id).all()
+
+    user_reviews = Reviews.query.filter_by(user_id=user_id).filter_by(isbn=book.isbn)
 
     if request.method == "GET":
         numbers = [i for i in range(1, 6)]
         numbers.insert(0, '')
-        req = requests.get("https://www.goodreads.com/book/review_counts.json",
-                params={"key": GOODREADS_APIKEY, "isbns": {book.isbn}}).json()["books"][0]
-        return render_template("book.html", book=book, user_reviews=user_reviews, reviews_count=req["reviews_count"], average_rating=req["average_rating"], numbers=numbers, query=query)
+
+        url = "https://www.goodreads.com/book/review_counts.json"
+        req = requests.get(url, params={"key": GOODREADS_API, "isbns": {book.isbn}})
+
+        # GoodReads changed isbn by adding more leading zeroes, giving a 404 response, so:
+        new_isbn = book.isbn
+
+        for i in range(6):
+            if req.ok:
+                req = req.json()["books"][0]
+
+                return render_template("book.html", book=book, user_reviews=user_reviews, reviews_count=req["reviews_count"], average_rating=req["average_rating"], numbers=numbers, query=query)
+
+            new_isbn = "0" + str(new_isbn)
+            req = requests.get(url, params={"key": GOODREADS_API, "isbns": new_isbn})
+
+        return render_template("notify.html", title="ISBN unavailable", msg="Please, go to the homepage.")
+
 
     # if method == "POST"
     opinion = request.form.get("opinion")
     rate = request.form.get("rate")
 
     if not rate or not opinion:
-        return render_template("notify.html", title="Invalid input", msg="Review or rate cannot be empty")
+        return render_template("notify.html", title="Invalid input", msg="Review or rate cannot be empty.")
 
-    for item in user_reviews:
-        if item.user_id == user_id and item.isbn == book.isbn:
-            return render_template("notify.html", title="Reviewed already sent", msg="Only one review per book is allowed.")
+    # for item in user_reviews:
+
+    #     if item.user_id == user_id:
+
+    #         a = item.isbn; b = book.isbn
+    #         while len(a) < len(b):
+    #             a = "0" + str(a)
+
+    #         if a == b:
+    #             return render_template("notify.html", title="Reviewed already sent", msg="Only one review per book is allowed.")
+
 
     user_reviews = Reviews(opinion=opinion, rate=rate, isbn=book.isbn, user_id=user_id)
     db.session.add(user_reviews)
     db.session.commit()
 
-    # return render_template("book.html", opinion=opinion, rate=rate, user_reviews=user_reviews, msg="Your review were successfully sent.")
-    return render_template("notify.html", title="Submitted", msg="Your review were successfully sent")
+    return render_template("notify.html", title="Submitted", msg="Your review were successfully sent.")
 
 
-@app.route("/logout", methods=["GET", "POST"])
-def logout():
+
+@app.route("/reviews", methods=["GET"])
+def reviews():
+
+    # Check if user is logged in before accessing the book page
     if session.get("id") is None:
         return render_template("notify.html", title="Missing user credentials", msg="Please, go to the homepage to login.")
 
-    if request.method == "GET":
-        # Clear out user data
-        session["user_id"] = []
-        session["user_query"] = []
-        return render_template("main.html", msg="You were successfully logged out")
+    user_id = session.get("id")
+    user_reviewed = db.session.query(db.session.query(Reviews).filter_by(user_id=user_id).exists()).scalar()
 
-    return render_template("notify.html", title="Not logged", msg="You need to be logged before logging out.")
+    if user_reviewed:
+        user_reviews = Reviews.query.filter_by(user_id=user_id)
+
+        return render_template("reviews.html", user_reviews=user_reviews)
+
+    return render_template("notify.html", title="No reviews found", msg="You didn't submit any reviews yet.")
+
+
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    session.clear()
+    return render_template("main.html", msg="You were successfully logged out.")
+
 
 
 @app.route("/notify.html", methods=["GET", "POST"])
