@@ -9,12 +9,13 @@
 
 {% block body %}
 
-<p>Search and submit reviews for your favorite book.<br>
+<div class="logout">
+    {% if msg %} <i></i>{{ msg }}</i><br><br> {% endif %}
+
+    <p>Search and submit reviews for your favorite book.<br>
     Categories available: ISBN (Goodreads ID), Book Title, Author and Year.<br>
     View how many real Goodreads' reviews and average rate each book has!</p><br>
-
-<div class="home">
-    <!--{% if msg %} {{ msg }} {% endif %}-->
+    
 
 <div class="forms">
     <h3 class="title">Registration:</h3>

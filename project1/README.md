@@ -19,12 +19,12 @@
 Template descriptions:
 
 - `layout.html` base template with common structure
-- `main.html` login/registration homepage
+- `main.html` login/registration/logout page
 - `notify.html` after user registration/logout/invalid login credentials
 - `members.html` member's area, let users search for a any query
 - `search.html` search results page
 - `book.html` individual page with book information
-- `logout.html` after logging out
+- `reviews.html` list all user reviews
 
 ### 1. [x] Registration
 
@@ -40,7 +40,7 @@ Logged in users should be able to log out of the site.
 
 ### 4. [x] Import
 
-Import books.csv into PostgreSQL database.
+Import books.csv into PostgreSQL database. (SQLite for the live website)
 
 ### 5. [x] Search
 
