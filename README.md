@@ -4,7 +4,9 @@
 
 ## [Project1](https://github.com/mxhsb/cs50_web/blob/master/project1)
 
-Flask, ORM, API, SCSS  
+Flask, ORM, SQL, API, SCSS  
+
+[Goodreads Reviews Website DEMO](https://goodreadsreview.pythonanywhere.com)
 
 Status: **Done**  
 
