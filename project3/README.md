@@ -18,6 +18,6 @@
 
 ### 5. [x] Placing an Order
 
-### 6. [x] Viewing Orders
+### 6. [x] Viewing Orders (Incomplete)
 
-### 7. [_] Personal Touch
+### 7. [x] Personal Touch
