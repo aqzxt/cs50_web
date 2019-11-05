@@ -4,14 +4,16 @@
 
 ## [Project1](https://github.com/mxhsb/cs50_web/blob/master/project1)
 
-Flask, ORM, SQL, API, SCSS  
+Flask, ORM (Object-Relational Mapping), SQL, API, SASS  
 
 [Goodreads Reviews Website DEMO](https://goodreadsreview.pythonanywhere.com)
 
-Status: **Done**  
+Core functionality: **Done**  
 
 ## [Project3](https://github.com/mxhsb/cs50_web/blob/master/project3)
 
-Django, RDB  
+Django, RDB (Relational Database), SASS, jQuery
 
-Status: **Done**
+[Pinochio's Pizza (Store) DEMO](https://pinochiospizza.pythonanywhere.com)
+
+Core functionality: **Done**
